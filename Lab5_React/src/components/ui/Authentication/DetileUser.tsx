@@ -1,8 +1,11 @@
+import { useState } from "react";
 import "./index.scss";
+import { Trash2 } from "lucide-react";
 interface IProps {
   usersList: IUserData[];
   setLogged: (isLogged: boolean) => void;
   isLogged: boolean;
+  setUsers: (users: IUserData[]) => void;
 }
 
 interface IUserData {
@@ -13,20 +16,34 @@ interface IUserData {
   };
 }
 
-const DetileUser = (props: IProps) => {
+const DetileUser = ({ usersList, setLogged, isLogged, setUsers }: IProps) => {
+  // const DetileUser = (props: IProps) => {  //
+  const [listUsers, setListUsers] = useState(usersList);
+
   const handelListUser = () => {
-    if (!Array.isArray(props.usersList)) {
+    if (!Array.isArray(listUsers)) {
       // Handle the case where usersList is not an array
-      console.log(props.usersList);
+      console.log(listUsers);
       return <p>Error: usersList is not an array.</p>;
     }
 
     return (
       <div>
-        {props.usersList.map((user, index) => (
-          <div key={index}>
+        {listUsers.map((user, index) => (
+          <div key={index} className="userInfo">
             <p>Username: {user.user.username}</p>
             <p>Password: {user.user.password}</p>
+            {/* button delete */}
+            <button
+              className=" delete_btn"
+              onClick={() => {
+                // delete user from list and update the list
+                const newList = listUsers.filter((item, i) => i !== index);
+                setListUsers(newList);
+              }}
+            >
+              Delete <Trash2 size={16} />
+            </button>
           </div>
         ))}
       </div>
@@ -40,7 +57,8 @@ const DetileUser = (props: IProps) => {
         {handelListUser()}
         <button
           onClick={() => {
-            props.setLogged(!props.isLogged);
+            setLogged(!isLogged);
+            setUsers(listUsers);
           }}
         >
           Logout

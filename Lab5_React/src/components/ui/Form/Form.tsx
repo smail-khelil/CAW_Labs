@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 
 export default function Form() {
-  const [divs, setDivs] = useState([]);
+  const [divs, setDivs] = useState([] as JSX.Element[]);
   const [width, setWidth] = useState("");
   const [height, setHeight] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newDiv = (
       <div
         key={divs.length} // Ensure each div has a unique key
         style={{
-            width: parseInt(width, 10),
-            height: parseInt(height, 10),
+          width: parseInt(width, 10),
+          height: parseInt(height, 10),
           backgroundColor: backgroundColor,
           border: "2px solid black",
           margin: "10px", // Optional: Add margin between divs
         }}
-      >
-     
-      </div>
+      ></div>
     );
     setDivs([...divs, newDiv]);
     // Clear input values
@@ -53,7 +51,13 @@ export default function Form() {
         <button type="submit">Submit</button>
       </form>
 
-      <div style={{ border: "2px solid black" }}>
+      <div
+        style={{
+          border: "2px solid black ",
+          borderRadius: "10px",
+          padding: "10px",
+        }}
+      >
         Targeted div
         {divs.map((div) => div)}
       </div>

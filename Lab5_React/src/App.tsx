@@ -5,7 +5,8 @@ import Button from "./components/ui/Button/Button";
 import ButtonMain from "./components/ui/ButtonMain/ButtonMain";
 import DisplayTab from "./components/ui/DisplayTab/DisplayTab";
 import DetileUser from "./components/ui/Authentication/DetileUser";
-import Form from "./components/ui/Form/Form"
+import Form from "./components/ui/Form/Form";
+
 // import Alert from "./components/ui/Alert/Alert";
 
 interface IUserData {
@@ -31,7 +32,7 @@ function App() {
           style={{
             textAlign: "center",
             backgroundColor: "lightblue",
-            padding: "10px",
+            padding: "5px 15px",
             // font color
             color: "black",
             borderRadius: "10px",
@@ -59,13 +60,14 @@ function App() {
                 usersList={users}
                 setLogged={setIsLogged}
                 isLogged={isLogged}
+                setUsers={setUsers}
               />
             </div>
           )}
         </div>
-        <div className="col3" >
-           <h2>Exo 4 :</h2>
-           <Form />
+        <div className="col4">
+          <h2>Exo 4 :</h2>
+          <Form />
         </div>
       </div>
     </>
