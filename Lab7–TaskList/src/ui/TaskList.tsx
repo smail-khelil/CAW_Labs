@@ -1,0 +1,75 @@
+import { ITask } from "../assets/interface/ITask";
+import { X } from "lucide-react";
+
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+  listTasks: ITask[];
+  deletetask: (id: string) => void;
+  onDoubleClick: () => void;
+  task: ITask;
+}
+
+const TaskList = ({ task, onDoubleClick, deletetask }: IProps) => {
+  return (
+    <div className="flex flex-col bg-transparent rounded-lg shadow-lg overflow-hidden m-1 border border-1 border-gray-300 w-96 px-5 space-y-2 ">
+      <div className=" flex justify-between items-center row">
+        <h2 className="text-lg font-semibold text-white  truncate ">
+          {task.title}
+        </h2>
+        <div className="flex row items-end " key={task.id}>
+          {task.status?.nameS ?? ""}
+          <div className="flex flex-row justify-between items-start pb-1 ">
+            <img
+              src={task.status?.statusImg}
+              alt=""
+              className="h-5 w-5 flex-shrink-0 rounded-full ml-2 "
+            />
+            <button
+              className="bg-transparent hover:bg-red-500 text-white font-semibold hover:text-white py-1 px-2 border border-red-500 hover:border-transparent rounded ml-2"
+              onClick={() => {
+                deletetask(task.id ?? "");
+              }}
+            >
+              <X width={10} height={10} />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-row justify-between items-start pb-1 ">
+        <p className="text-sm ml-5 mt-3">- {task.description}</p>
+        <button
+          className="bg-green-400 hover:bg-green-700 text-white font-bold p-2 rounded mb-1"
+          onClick={onDoubleClick}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-5 h-5  "
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 10.5v6m3-3H9m4.06-7.19l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div className="flex flex-col justify-between items-start pb-1 ">
+        {task.subtasks?.map((subtask) => {
+          return (
+            <div
+              key={subtask.id}
+              className="flex flex-row justify-between items-start pb-1 "
+            >
+              <p className="text-sm ml-5 mt-3">- {subtask.title}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default TaskList;
